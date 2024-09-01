@@ -1,3 +1,9 @@
+---
+slug: state-and-presentation
+title: state and presentation
+authors: yejun
+unlisted: true
+---
 
 # 02. Presentation / State 동기화 문제: 프론트엔드와 백엔드의 경계 정하기
 
