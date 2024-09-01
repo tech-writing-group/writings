@@ -31,7 +31,7 @@ unlisted: true
 - 문의가 들어왔을 때 어떤 상황에서 문제가 발생했는지 주변 맥락을 파악해야 하는데, 데이터 변경 이력은 큰 도움이 되었어요.
 - **사용자는 자신이 어떤 행동을 했는지 정확하게 설명할 수 있는 경우가 드물기 때문에** 맥락을 재구성하려면 꼭 필요한 정보에요.
 
-  <img src="./img/2024-08-11-lets-make-production-ready-web-service/img1.jpg" width="400">
+<img src={require("@site/static/2024-08-11-lets-make-production-ready-web-service/img1.jpg").default} width="400" />
 
 - 문제가 사용자의 액션 때문인지, 우리 코드의 버그 때문인지 구분하는 데에도 유용한 근거로 사용할 수 있어요.
 
@@ -122,7 +122,7 @@ var Option = fx.Options(
 
 이런 리포트 쓰는 일은 소프트웨어 개발이 아니니까 다른 사람이 해주나요? 당연히 그럴 리가 없어요. 채널 동사무소 스타트업에 다니는 개발자는 어쨌든 필요하고 내가 할 수 있는 일이면 해야해요. 다행히 Redash를 이미 사용하고 있기 때문에 쿼리를 돌리고 결과를 시각화하는 것은 아주 쉬워요. (그냥 Redash에서 제공하는 기능을 활용하면 돼요.)
 
-![img4](./img/2024-08-11-lets-make-production-ready-web-service/img4.png)
+![img4](/2024-08-11-lets-make-production-ready-web-service/img4.png)
 
 금방 다채로운 대시보드 리포트가 완성되었어요!
 
@@ -168,14 +168,14 @@ Redash는 백오피스 툴 중에서 가장 팀에서 일상적으로 사용하�
 
 같이 도큐먼트를 개발하는 클라이언트 팀원이 갑자기 개발 서버에 테스트 중이던 데이터가 다 사라졌다고 멘션을 줬어요! 화들짝 놀란 두기는 빠르게 확인해봤는데, 진짜 데이터가 날아갔고 심지어 그 팀원이 보던 데이터 뿐만이 아니라 **전체 데이터베이스가 날아간 것이었어요!** 😱😱
 
-<img src="./img/2024-08-11-lets-make-production-ready-web-service/img2.png" width="400" />
+<img src={require("@site/static/2024-08-11-lets-make-production-ready-web-service/img2.png").default} width="400" />
 
 나중에 쿼리 실행 로그를 보고 원인은 찾으면 되고, 그 전에 데이터베이스 복구를 해야겠죠. 다행히 저희 데이터베이스는 Amazon RDS 상에서 운영되고 있고, 스테이징 환경에서는 매일 자동으로 PITR 백업이 기록돼요. PITR 백업을 그대로 쓸 수는 없었어요(그 인스턴스의 모든 데이터베이스가 PITR 시점으로 리셋되는건데, 저희 데이터베이스만 날아간 것이었거든요). 하지만 PITR로부터 새 인스턴스를 띄운 후 pg_dump로 데이터를 덤프 뜨고, 원래 인스턴스에 데이터를 밀어넣으니 복구 완료!
 
 사실 원인은 개발 환경에 붙어서 테스트 코드를 돌리다가 통합 테스트 코드의 truncate (`TRUNCATE TABLE {table_name} CASCADE`) 로직이 스테이징 데이터베이스에서 돌아간 것이었어요. 통합 테스트는 매번 테스트 데이터베이스를 초기화하고 실행하기 때문이죠. 코드상으로 실수가 발생할 수 있어보여 통합 테스트는 로컬 호스트에 대해서만 돌릴 수 있도록 방어 로직을 추가했어요.
 
 <figure>
-  <img src="./img/2024-08-11-lets-make-production-ready-web-service/img3.png" width="400" />
+  <img src={require("@site/static/2024-08-11-lets-make-production-ready-web-service/img3.png").default} width="400" />
   <figcaption>(대문짝한 경고 문구)</figcaption>
 </figure>
 
